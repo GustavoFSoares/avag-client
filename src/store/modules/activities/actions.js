@@ -192,16 +192,6 @@ export default {
 
               switch (stage.conteudo.game) {
                 case "7-erros":
-                  // canNext = false;
-
-                  [("left", "right")].forEach((position) => {
-                    content.gameData.forEach((_, gameStageIndex) => {
-                      const [currentImage] = gamesImages.splice(0, 1);
-
-                      content.gameData[gameStageIndex].images[position] =
-                        currentImage.path;
-                    });
-                  });
                   break;
 
                 case "Quiz":
