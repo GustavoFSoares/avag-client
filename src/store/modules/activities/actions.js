@@ -94,67 +94,71 @@ export default {
 
       const releaseds = [...data.em_andamento, ...data.sucesso];
 
+      const activitiesData = data.atividade
+        .filter((activity) => activity.status === "ativo")
+        .map((activity, activityIndex) => {
+          return {
+            id: activity.id,
+            trailId: activity.trilha_id,
+            name: activity.nome,
+            progress: 80,
+            completed: data.sucesso?.includes(activity.id),
+            reward: {
+              coins: activity.moedas,
+              points: activity.pontos,
+            },
+            types: activity.estagios.reduce((amount, stage) => {
+              if (
+                amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
+                -1
+              ) {
+                return amount;
+              }
+
+              amount.push(iconsMapReplations[stage.tipo.descricao]);
+
+              return amount;
+            }, []),
+            position: activity.ordem + "",
+            rank: 2,
+            released:
+              activityIndex === 0 ||
+              !!releaseds.find((releasedId, releasedIndex) => {
+                if (releasedId === activity.id) {
+                  releaseds.splice(releasedIndex, 1);
+
+                  return true;
+                }
+              }),
+            library: !activity.biblioteca
+              ? null
+              : {
+                  name: activity.biblioteca.nome,
+                  description: activity.biblioteca.descricao,
+                  itens: activity.biblioteca.items.map((item) => ({
+                    id: item.id,
+                    description: item.descricao,
+                    file: item.file.path,
+                    type: iconsMapReplations[item.type],
+                    updatedAt: item.updated_at,
+                  })),
+                },
+          };
+        })
+
+      const completedActivityCount = activitiesData.filter(activity => activity.completed).length
+
       return {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
         goal: data.objetivo,
-        progress: 50,
+        progress: completedActivityCount * 100 / activitiesData.length,
         reward: {
           coins: 12,
           points: 50,
         },
-        activities: data.atividade
-          .filter((activity) => activity.status === "ativo")
-          .map((activity, activityIndex) => {
-            return {
-              id: activity.id,
-              trailId: activity.trilha_id,
-              name: activity.nome,
-              progress: 20,
-              completed: data.sucesso?.includes(activity.id),
-              reward: {
-                coins: activity.moedas,
-                points: activity.pontos,
-              },
-              types: activity.estagios.reduce((amount, stage) => {
-                if (
-                  amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
-                  -1
-                ) {
-                  return amount;
-                }
-
-                amount.push(iconsMapReplations[stage.tipo.descricao]);
-
-                return amount;
-              }, []),
-              position: activity.ordem + "",
-              rank: 2,
-              released:
-                activityIndex === 0 ||
-                !!releaseds.find((releasedId, releasedIndex) => {
-                  if (releasedId === activity.id) {
-                    releaseds.splice(releasedIndex, 1);
-
-                    return true;
-                  }
-                }),
-              library: !activity.biblioteca
-                ? null
-                : {
-                    name: activity.biblioteca.nome,
-                    description: activity.biblioteca.descricao,
-                    itens: activity.biblioteca.items.map((item) => ({
-                      id: item.id,
-                      description: item.descricao,
-                      file: item.file.path,
-                      type: iconsMapReplations[item.type],
-                      updatedAt: item.updated_at,
-                    })),
-                  },
-            };
-          }),
+        activities: activitiesData
       };
     } catch (err) {
       console.error("Courses Data by ID Error", err);

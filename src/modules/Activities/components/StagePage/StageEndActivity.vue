@@ -43,6 +43,7 @@
 
     <div class="stage-end-activity__buttons">
       <QBtn
+        v-if="false"
         color="primary"
         outline
         :label="$t(`${I18N_PATH}.buttons.tryAgain`)"

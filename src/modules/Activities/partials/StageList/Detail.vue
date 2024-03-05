@@ -43,6 +43,7 @@
       </div>
 
       <AvProgressBar
+        v-if="false"
         class="stage-list-detail__progress-bar"
         :progress="stage.progress"
       />
@@ -147,8 +148,8 @@ const handleClose = () => {
   ctx.emit("close");
 };
 
-const handleOpenDocument = ({id,file }) => {
-  console.log(id, "  ++ Detail")
+const handleOpenDocument = ({ id, file }) => {
+  console.log(id, "  ++ Detail");
   window.open(
     `${appContext.config.globalProperties.$appStorage}/${file}`,
     "_blank"
