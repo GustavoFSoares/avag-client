@@ -1,4 +1,5 @@
 import { api } from "boot/axios";
+import { SessionStorage } from "quasar";
 
 export default {
   setLoading: ({ commit }, isLoading) => {
@@ -160,6 +161,7 @@ export default {
   invalidateUser: ({ commit }) => {
     commit("SET_USER", null);
     commit("SET_TOKEN", null);
+    SessionStorage.remove('presentation')
   },
   doRestartPassword: async ({ dispatch }, { username }) => {
     dispatch("setLoading", true);

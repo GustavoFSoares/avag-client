@@ -1,6 +1,7 @@
 import { api } from "boot/axios";
 import ActivitiesStatusMap from "maps/activitiesStatusMap.json";
 import { iconsMapReplations } from "maps/iconsMaps.json";
+import { SessionStorage } from "quasar";
 
 const MAX_PRESENTATIONS = 4;
 
@@ -311,12 +312,13 @@ export default {
       console.error("Stage PDF Error", err);
     }
   },
-  getActivityPresentationId({ state, commit }, activityId) {
-    // if (state.watchedList.find((item) => Number(item) === Number(activityId))) {
-    //   return null;
-    // }
+  getActivityPresentationId() {
+    const hasPresentation = SessionStorage.getItem('presentation')
+    if (hasPresentation) {
+      return null
+    }
 
-    // commit("AD_TO_WATCHED_LIST", activityId);
+    SessionStorage.set('presentation', true)
 
     const randomPresentation =
       Math.floor(Math.random() * MAX_PRESENTATIONS) + 1;

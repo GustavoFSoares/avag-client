@@ -95,10 +95,7 @@ const mappedActivitiesList = computed(() => {
 const handleStartActivity = async (currentActivityId) => {
   activityId.value = currentActivityId;
 
-  let presentationId = await $store.dispatch(
-    "ActivitiesModule/getActivityPresentationId",
-    activityId.value
-  );
+  let presentationId = await $store.dispatch("ActivitiesModule/getActivityPresentationId");
 
   if (!presentationId) {
     return startActivity();
