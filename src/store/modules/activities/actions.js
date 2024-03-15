@@ -278,12 +278,12 @@ export default {
       trilhas_alunos_stagios_id: trailStudentStageId,
     })
 
-    // await api.post("alunos/URL_ATIVIDADE_TEMPO_ESGOTADO", {
-      // trilha_id: trailId,
-      // atividade_id: activityId,
-      // estagio_id: stageId,
-      // trilhas_alunos_stagios_id: trailStudentStageId,
-    // });
+    await api.post("alunos/trilha-aluno-estagio-resposta", {
+      trilha_id: trailId,
+      atividade_id: activityId,
+      estagio_id: stageId,
+      jogo_resposta: "time-out",
+    });
   },
   getPdfData: async (_, path) => {
     try {

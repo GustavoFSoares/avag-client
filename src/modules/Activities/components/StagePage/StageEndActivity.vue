@@ -6,6 +6,10 @@
           {{ $t(`${I18N_PATH}.completed`) }}
         </span>
 
+        <span v-else-if="timedOut">
+          {{ $t(`${I18N_PATH}.timedOut`) }}
+        </span>
+
         <span v-else>
           {{ $t(`${I18N_PATH}.uncompleted`) }}
         </span>
@@ -20,7 +24,7 @@
       <div v-if="activity.reward.coins" class="reward-item reward-item--coins">
         <QIcon class="reward-item__icon" name="o_paid" />
 
-        <span class="reward-item__value">
+        <span :class="['reward-item__value', {'reward-item__value--timed-out': timedOut}]">
           {{ activity.reward.coins }}
         </span>
 
@@ -33,7 +37,7 @@
       >
         <QIcon class="reward-item__icon" name="o_grade" />
 
-        <span class="reward-item__value">
+        <span :class="['reward-item__value', {'reward-item__value--timed-out': timedOut}]">
           {{ activity.reward.points }}
         </span>
 
@@ -57,6 +61,14 @@
         color="primary"
         :label="$t(`${I18N_PATH}.buttons.goBackList`)"
         @click="handleFisnishActivity"
+      />
+
+      <QBtn
+        v-else-if="timedOut"
+        class="stage-end-activity__button"
+        color="primary"
+        :label="!isLast ? $t(`${I18N_PATH}.buttons.nextStep`) : $t(`${I18N_PATH}.buttons.finish`)"
+        @click="handleNextStep"
       />
 
       <QBtn
@@ -89,8 +101,16 @@ const props = defineProps({
     type: Object,
     required: true,
   },
+  timedOut: {
+    type: Boolean,
+    required: true,
+  },
+  isLast: {
+    type: Boolean,
+    required: true,
+  },
 });
-const $emits = defineEmits(["restart"]);
+const $emits = defineEmits(["restart", "nextStep"]);
 
 const isCompleted = computed(() => {
   const uncompletedActivity = props.activity.stages.find((stage) => {
@@ -102,6 +122,14 @@ const isCompleted = computed(() => {
 
 const handleRestart = () => {
   $emits("restart");
+};
+
+const handleNextStep = () => {
+  if (props.isLast) {
+    return handleFisnishActivity()
+  }
+
+  $emits("nextStep");
 };
 
 const handleFisnishActivity = async () => {
@@ -182,6 +210,11 @@ const handleFisnishActivity = async () => {
     &__value {
       font-weight: $font-weight-semibold;
       font-size: 16px;
+
+      &--timed-out {
+        text-decoration: line-through;
+        font-style: italic;
+      }
     }
 
     &__text {

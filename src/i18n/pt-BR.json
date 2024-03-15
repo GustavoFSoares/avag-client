@@ -308,9 +308,12 @@
         "endActivity": {
           "completed": "Atividade completa",
           "uncompleted": "Atividade incompleta",
+          "timedOut": "Tempo esgotado",
           "buttons": {
             "tryAgain": "Tentar novamente",
-            "goBackList": "Voltar para lista"
+            "goBackList": "Voltar para lista",
+            "nextStep": "Próxima atividade",
+            "finish": "Finalizar"
           }
         }
       }

@@ -57,7 +57,6 @@
             <div v-if="hasStages && currentStage" class="stage-wrapper">
               <div class="stage-wrapper__content">
                 <StageContent
-                  v-if="!timedOut"
                   :activity-id="activityData.id"
                   :stage-id="currentStage.id"
                   :content="currentStage.content"
@@ -67,16 +66,6 @@
                   :informative-description="currentStage.description"
                   @finish="handleReleaseStage"
                 />
-
-                <section class="timed-out-image" v-else>
-                  <img
-                    class="timed-out-image__image"
-                    src="~assets/img/activities/timeout.webp"
-                    :alt="title"
-                  />
-
-                  <h3>Tempo esgotado!</h3>
-                </section>
 
                 <QBtn
                   class="stage-wrapper__button"
@@ -95,6 +84,7 @@
                   :key="activityStepIndex"
                   @click="handleNextStep(activityStepIndex)"
                   :class="[
+                    'no-pointer-events',
                     'stage-wrapper__step-item',
                     {
                       'stage-wrapper__step-item--completed':
@@ -126,7 +116,10 @@
     <StageEndActivity
       :trail-id="trailId"
       :activity="activityData"
+      :timed-out="timedOut"
+      :is-last="isLast"
       @restart="handleRestartActivity"
+      @nextStep="handleNextStep"
     />
   </QDialog>
 </template>
@@ -177,8 +170,9 @@ const currentStage = computed(() => {
 });
 
 const handleEndTime = () => {
-  currentStage.value.canNext = true;
   timedOut.value = true;
+  activityIsFinished.value = true;
+  currentStage.value.canNext = true;
 
   if (stageId && trailId) {
     $store.dispatch("ActivitiesModule/timeOut", {
@@ -246,6 +240,7 @@ const handleStartActivity = () => {
 const restartTimer = () => {
   if (timer.value) {
     timedOut.value = false;
+    activityIsFinished.value = false;
     timer.value.restartTimer();
     timer.value.start();
   }

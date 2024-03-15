@@ -3,7 +3,7 @@
     :class="[
       'stage-item',
       {
-        'stage-item--completed': completed,
+        'stage-item--completed no-pointer-events': completed,
         'stage-item--blocked': !active,
       },
     ]"
