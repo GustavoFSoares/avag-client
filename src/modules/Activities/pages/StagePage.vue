@@ -400,6 +400,9 @@ onMounted(async () => {
     display: flex;
     flex-direction: column;
     gap: 15px;
+    background: rgba(69, 63, 63, 0.75);
+    border-radius: 16px;
+    padding: 10px;
 
     &__title {
       color: $white;

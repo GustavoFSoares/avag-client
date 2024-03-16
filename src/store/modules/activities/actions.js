@@ -237,6 +237,13 @@ export default {
     }
   },
   gameResponse: async (_, { trailId, activityId, stageId, gameAnswer }) => {
+    console.log("alunos/trilha-aluno-estagio-resposta", {
+      trilha_id: trailId,
+      atividade_id: activityId,
+      estagio_id: stageId,
+      jogo_resposta: gameAnswer,
+    });
+
     await api.post("alunos/trilha-aluno-estagio-resposta", {
       trilha_id: trailId,
       atividade_id: activityId,
@@ -282,7 +289,7 @@ export default {
       trilha_id: trailId,
       atividade_id: activityId,
       estagio_id: stageId,
-      jogo_resposta: "time-out",
+      jogo_resposta: { timeOut: true },
     });
   },
   getPdfData: async (_, path) => {
