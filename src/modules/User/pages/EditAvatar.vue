@@ -5,22 +5,11 @@
         <div class="edit-avatar__avatar-preview">
           <AvatarCreatorViewer :height="480" />
 
-          <QBtn
-            class="edit-avatar__save-avatar-button"
-            color="primary"
-            :label="$t(`${I18N_PATH}.submit`)"
-            @click="handleSubmit"
-          />
+          <QBtn class="edit-avatar__save-avatar-button" color="primary" :label="$t(`${I18N_PATH}.submit`)"
+            @click="handleSubmit" />
 
-          <QBtn
-            class="edit-avatar__back-button"
-            color="primary"
-            icon="arrow_back"
-            :to="{ name: 'home' }"
-            flat
-            rounded
-            padding="5px"
-          />
+          <QBtn class="edit-avatar__back-button" color="primary" icon="arrow_back" :to="{ name: 'home' }" flat rounded
+            padding="5px" />
         </div>
 
         <div class="edit-avatar__avatar-options">
