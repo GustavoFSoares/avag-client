@@ -1,12 +1,19 @@
 import { api } from "boot/axios";
+import { defaultAvatar } from "vue-avatar-creator"
 
 export default {
   setAvatar: ({ commit }, avatarOptions) => {
+    let avatarData
     if (typeof avatarOptions === "string") {
-      avatarOptions = JSON.parse(avatarOptions);
+      avatarData = JSON.parse(avatarOptions);
+    } else {
+      avatarData = { ...avatarOptions }
     }
 
-    commit("SET_AVATAR_OPTIONS", { ...avatarOptions });
+    if (Object.values(avatarData).length === 0) {
+      avatarData = { ...defaultAvatar }
+    }
+    commit("SET_AVATAR_OPTIONS", avatarData);
   },
   sendAvatar: async ({ commit, rootGetters }, avatarOptions) => {
     const { id: userId } = rootGetters["AuthModule/userData"];
