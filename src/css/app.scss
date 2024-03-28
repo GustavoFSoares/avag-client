@@ -3,17 +3,10 @@
 
 html, body {
   background-color: #00e2ff;
-}
-
-body {
-  background-size: cover;
-  background-position: center;
-  background-image: url("/background.webp");
-  height: 100vh;
-}
-
-html {
-  height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url("/background.webp");
+    height: 100%;
 }
 
 button {
@@ -42,7 +35,7 @@ a {
 }
 
 .app-container {
-  height: 100vh;
+  // height: 100vh;
   width: 100vw;
 
   // background-color: $default-background;
@@ -54,7 +47,7 @@ a {
   flex-direction: column;
 
   @media (max-width: $breakpoint-mobile) {
-    height: 100%;
+    // height: 100%;
   }
 
   &__wrapper {

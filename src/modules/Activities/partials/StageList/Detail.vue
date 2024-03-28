@@ -166,10 +166,15 @@ const handleOpenDocument = ({ id, file }) => {
   border-radius: $default-border-radius;
   backdrop-filter: $default-backdrop;
 
-  width: 500px;
   padding: 70px 30px;
 
   position: relative;
+
+  width: 500px;
+  @media (max-width: $breakpoint-mobile) {
+    width: 90vw
+  }
+
 
   &__content {
     display: flex;

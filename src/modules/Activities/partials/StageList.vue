@@ -79,6 +79,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   margin: 0 auto;
+  padding-bottom: 32px;
 
   gap: 30px;
 
