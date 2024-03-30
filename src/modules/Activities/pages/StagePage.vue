@@ -304,10 +304,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-page {
-  background-image: url("/activity.c-background.png");
-  background-size: cover;
-  background-position: center;
-
   :deep {
     .av-page-content {
       display: initial;
@@ -397,7 +393,7 @@ onMounted(async () => {
   &__close-button {
     position: absolute;
     top: 0;
-    right: calc(-1 * (0% + 42px));
+    right: calc(-1 * 0%);
     background: rgba(#cecece, 0.8) !important;
   }
 

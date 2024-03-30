@@ -10,7 +10,7 @@
         v-for="(stage, stageIndex) in stagesRow"
         :key="stage.id"
         :active="stage.released"
-        :position="stagesRowIndex * 5 + stageIndex"
+        :position="stagesRowIndex * choosedDevice + stageIndex"
         :rank="stage.rank"
         :completed="stage.completed"
         @click-stage="handleClickStage(stage)"
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { computed } from "vue";
+import { computed, ref, watch } from "vue";
 import { Screen } from "quasar";
 
 import StageItem from "../components/StageList/StageItem.vue";
@@ -38,9 +38,31 @@ export default {
     },
   },
   setup(props, ctx) {
+    const devices = {
+      web: 5,
+      tablet: 3,
+      mobile: 1,
+    };
+
+    const choosedDevice = ref(devices.web);
     const isMobile = computed(() => Screen.xs);
+    const isTabled = computed(() => Screen.sm);
 
     const stageList = computed(() => props.stages);
+
+    watch(
+      () => {
+        choosedDevice.value = devices.web;
+        if (isMobile.value) {
+          choosedDevice.value = devices.mobile;
+        }
+
+        if (isTabled.value) {
+          choosedDevice.value = devices.tablet;
+        }
+      },
+      { deep: true, immediate: true }
+    );
 
     const handleClickStage = ({ released, id }) => {
       if (!released) {
@@ -55,7 +77,7 @@ export default {
 
       const rows = [];
       while (stages.length !== 0) {
-        const stagesRow = stages.splice(0, isMobile.value ? 1 : 5);
+        const stagesRow = stages.splice(0, choosedDevice.value);
 
         rows.push(stagesRow);
       }
@@ -65,6 +87,7 @@ export default {
 
     return {
       isMobile,
+      choosedDevice,
       stageList,
       preparedList,
       handleClickStage,

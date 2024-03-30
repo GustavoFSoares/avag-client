@@ -18,7 +18,7 @@
     "jquery": "^3.6.3",
     "quasar": "^2.6.0",
     "vue": "^3.3.0",
-    "vue-avatar-creator": "^0.1.10",
+    "vue-avatar-creator": "^0.1.11",
     "vue-color-avatar": "^1.1.17",
     "vue-i18n": "^9.0.0",
     "vue-pdf-embed": "^1.1.4",

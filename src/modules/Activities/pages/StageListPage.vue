@@ -168,10 +168,6 @@ onMounted(async () => {
 
 <style lang="scss" scoped>
 .stage-list-page {
-  background-image: url("/activity.c-background.png");
-  background-size: cover;
-  background-position: center;
-
   :deep {
     .av-page-header {
       box-shadow: 0px 2px 4px rgba(51, 66, 78, 0.32);
