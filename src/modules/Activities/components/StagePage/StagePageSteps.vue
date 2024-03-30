@@ -5,7 +5,6 @@
       :key="activityStepIndex"
       @click="handleNextStep(activityStepIndex)"
       :class="[
-        'no-pointer-events',
         'stage-page-steps__step-item',
         {
           'stage-page-steps__step-item--completed': activityStep.completed,
@@ -33,8 +32,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .stage-page-steps {
   width: 100%;
-  position: absolute;
-  bottom: 10px;
+  pointer-events: none;
 
   display: flex;
   gap: 5px;

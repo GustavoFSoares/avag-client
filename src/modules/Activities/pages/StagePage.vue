@@ -31,7 +31,7 @@ const {
 const $q = useQuasar();
 
 const isMobile = computed(() => {
-  return $q.screen.xs;
+  return $q.screen.xs || $q.screen.sm;
 });
 </script>
 
@@ -51,6 +51,10 @@ const isMobile = computed(() => {
       &__container {
         height: 100%;
         padding-bottom: initial;
+
+        @media (max-width: $breakpoint-tablet) {
+          padding: 5px 5px 0;
+        }
       }
     }
   }

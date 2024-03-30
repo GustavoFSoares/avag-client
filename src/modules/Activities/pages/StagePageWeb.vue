@@ -67,6 +67,7 @@
             </div>
 
             <StagePageSteps
+              class="stage-wrapper__steps"
               :current-stage-index="currentStageIndex"
               :stages="activityData.stages"
             />
@@ -132,8 +133,6 @@ const {
   handleRestartActivity,
   handleReleaseStage,
 } = useStagePage();
-
-console.log(currentStageIndex, currentStage);
 </script>
 
 <style lang="scss">
@@ -293,6 +292,11 @@ console.log(currentStageIndex, currentStage);
   .stage-wrapper {
     height: 100%;
     margin-bottom: 35px;
+
+    &__steps {
+      position: absolute;
+      bottom: 10px;
+    }
 
     &__content {
       height: 100%;

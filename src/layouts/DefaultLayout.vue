@@ -48,6 +48,11 @@ const handleToggleMenu = () => {
 
   &__user-navigation {
     position: relative;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     &-button {
       --button-size: 30px;
