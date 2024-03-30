@@ -159,6 +159,13 @@ onMounted(async () => {
 });
 </script>
 
+<style lang="scss">
+.app-container:has(.stage-list-page--showing-goal),
+.desktop .app-container:has(.stage-list-page) {
+  height: 100vh;
+}
+</style>
+
 <style lang="scss" scoped>
 .stage-list-page {
   background-image: url("/activity.c-background.png");

@@ -34,8 +34,12 @@
 <script setup>
 const I18N_PATH = "modules.user.pages.edit";
 
-import "vue-avatar-creator/dist/style.css"
-import { AvatarCreatorOptions, AvatarCreatorViewer, useAvatarCreatorStore } from "vue-avatar-creator"
+import "vue-avatar-creator/dist/style.css";
+import {
+  AvatarCreatorOptions,
+  AvatarCreatorViewer,
+  useAvatarCreatorStore,
+} from "vue-avatar-creator";
 
 import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
@@ -52,52 +56,56 @@ const avatarStore = useAvatarCreatorStore();
 const rewards = computed(() => $store.getters["AuthModule/rewardsData"]);
 const userData = computed(() => $store.getters["AuthModule/userData"]);
 
-const avatarIsLoading = computed(
-  () => $store.state.AuthModule.avatar.loading
-);
+const avatarIsLoading = computed(() => $store.state.AuthModule.avatar.loading);
 
 const handleSubmit = async () => {
   const toSubmitAvatarData = avatarStore.items;
 
-  await $store.dispatch(
-    "AuthModule/avatar/sendAvatar",
-    toSubmitAvatarData
-  );
+  await $store.dispatch("AuthModule/avatar/sendAvatar", toSubmitAvatarData);
 
   await $store.dispatch("AuthModule/refreshUser");
 
   $router.push({ name: "home" });
 };
 
-
 onMounted(() => {
-  const data = $store.state.AuthModule.avatar.avatarOptions
+  const data = $store.state.AuthModule.avatar.avatarOptions;
 
   const avatarData = Object.keys(data).reduce((amount, itemKey) => {
     if (Array.isArray(data[itemKey])) {
-      amount[itemKey] = [...data[itemKey]]
+      amount[itemKey] = [...data[itemKey]];
     } else {
-      amount[itemKey] = data[itemKey]
+      amount[itemKey] = data[itemKey];
     }
 
-    return amount
-  }, {})
+    return amount;
+  }, {});
 
   avatarStore.setAvatar(avatarData);
 });
-
 </script>
 
 <style lang="scss" scoped>
 .edit-avatar {
   :deep(.av-page-content__container) {
     height: 100%;
+
+    @media (max-width: $breakpoint-mobile) {
+      padding: 20px 10px;
+      display: flex;
+      justify-content: center;
+    }
   }
 
   &__wrapper {
     display: flex;
     justify-content: space-between;
     gap: 50px;
+
+    @media (max-width: $breakpoint-mobile) {
+      flex-direction: column;
+      width: 100%;
+    }
   }
 
   &__avatar-preview {
@@ -111,6 +119,14 @@ onMounted(() => {
 
     :deep(.widget-option-list-item__debug) {
       display: none;
+    }
+
+    @media (max-width: $breakpoint-mobile) {
+      margin-top: 10px;
+
+      :deep(.widget-option-list__options) {
+        justify-content: center;
+      }
     }
   }
 

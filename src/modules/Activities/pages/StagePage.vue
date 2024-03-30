@@ -296,6 +296,12 @@ onMounted(async () => {
 });
 </script>
 
+<style lang="scss">
+.app-container:has(.stage-page) {
+  height: 100vh;
+}
+</style>
+
 <style lang="scss" scoped>
 .stage-page {
   background-image: url("/activity.c-background.png");

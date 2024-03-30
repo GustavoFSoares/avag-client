@@ -171,6 +171,10 @@ export default {
     &__container {
       padding: 20px 40px;
       padding-bottom: 80px;
+
+      @media (max-width: $breakpoint-mobile) {
+        padding: 20px 10px;
+      }
     }
   }
 }
