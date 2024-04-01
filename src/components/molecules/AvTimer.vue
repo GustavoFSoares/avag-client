@@ -11,7 +11,7 @@
       track-color="transparent"
     >
       <div class="av-timer__value">
-        {{ currentTime > 0 ? currentTime : 'Acabou!' }}
+        {{ currentTime > 0 ? currentTime : "Acabou!" }}
       </div>
     </QCircularProgress>
   </div>
@@ -20,7 +20,7 @@
 <script setup>
 import { computed, onMounted, onUpdated, ref, toRef, watch } from "vue";
 
-const $emits = defineEmits(["end-time"]);
+const $emit = defineEmits(["end-time", "current-time"]);
 const props = defineProps({
   startTime: {
     type: Number,
@@ -57,7 +57,7 @@ const handleStart = () => {
 
 const handleEndTimer = () => {
   restartTimer();
-  $emits("end-time");
+  $emit("end-time");
 };
 
 const restartTimer = () => {
@@ -80,9 +80,17 @@ watch(
   { immediate: true }
 );
 
+watch(
+  () => currentTime.value,
+  () => {
+    $emit("current-time", currentTime.value);
+  },
+  { immediate: true }
+);
+
 defineExpose({
   start,
-  restartTimer
+  restartTimer,
 });
 </script>
 

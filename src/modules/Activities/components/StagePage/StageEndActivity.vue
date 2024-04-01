@@ -24,7 +24,12 @@
       <div v-if="activity.reward.coins" class="reward-item reward-item--coins">
         <QIcon class="reward-item__icon" name="o_paid" />
 
-        <span :class="['reward-item__value', {'reward-item__value--timed-out': timedOut}]">
+        <span
+          :class="[
+            'reward-item__value',
+            { 'reward-item__value--timed-out': timedOut },
+          ]"
+        >
           {{ activity.reward.coins }}
         </span>
 
@@ -37,7 +42,12 @@
       >
         <QIcon class="reward-item__icon" name="o_grade" />
 
-        <span :class="['reward-item__value', {'reward-item__value--timed-out': timedOut}]">
+        <span
+          :class="[
+            'reward-item__value',
+            { 'reward-item__value--timed-out': timedOut },
+          ]"
+        >
           {{ activity.reward.points }}
         </span>
 
@@ -67,7 +77,11 @@
         v-else-if="timedOut"
         class="stage-end-activity__button"
         color="primary"
-        :label="!isLast ? $t(`${I18N_PATH}.buttons.nextStep`) : $t(`${I18N_PATH}.buttons.finish`)"
+        :label="
+          !isLast
+            ? $t(`${I18N_PATH}.buttons.nextStep`)
+            : $t(`${I18N_PATH}.buttons.finish`)
+        "
         @click="handleNextStep"
       />
 
@@ -126,7 +140,7 @@ const handleRestart = () => {
 
 const handleNextStep = () => {
   if (props.isLast) {
-    return handleFisnishActivity()
+    return handleFisnishActivity();
   }
 
   $emits("nextStep");
@@ -161,6 +175,8 @@ const handleFisnishActivity = async () => {
 
   border-radius: $default-border-radius;
   padding: 20px 15px;
+
+  max-height: 100vh !important;
 
   &__header {
     display: flex;

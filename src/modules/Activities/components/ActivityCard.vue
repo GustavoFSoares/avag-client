@@ -139,6 +139,7 @@ export default {
 
     &:deep(.av-card__header) {
       flex-grow: 1;
+      max-width: 250px;
     }
 
     @media (max-width: $breakpoint-mobile) {
