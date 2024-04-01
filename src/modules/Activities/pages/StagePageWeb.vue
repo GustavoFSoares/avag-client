@@ -5,7 +5,6 @@
         <AvTimer
           v-if="!currentStage.isInformative"
           ref="timer"
-          :auto-start="!showingGoal"
           :start-time="currentStage.time"
           @end-time="handleEndTime"
           :class="[

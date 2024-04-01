@@ -1,8 +1,14 @@
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onMounted, onUpdated, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 
 const timer = ref(null);
+
+export function useTimer() {
+  return {
+    timer,
+  };
+}
 
 export function useStagePage() {
   const $route = useRoute();

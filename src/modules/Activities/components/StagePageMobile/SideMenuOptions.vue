@@ -7,10 +7,11 @@
         'side-menu-options--hide-transition': hideTransation,
       },
     ]"
+    @mouseleave="handleCloseMenuMenu"
   >
     <div class="side-menu-options__container" v-if="currentStage">
       <button class="side-menu-options__button" @click="handleToggleOptions">
-        X
+        {{ remainingTimeText }}
       </button>
 
       <div class="side-menu-options__content">
@@ -20,6 +21,7 @@
             ref="timer"
             :start-time="currentStage.time"
             @end-time="handleEndTime"
+            @currentTime="handleSetRemainingTime"
           />
         </div>
 
@@ -45,14 +47,15 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits, onMounted } from "vue";
+import { ref, defineProps, defineEmits, onMounted, computed } from "vue";
 
 import AvTimer from "molecules/AvTimer.vue";
 
-import { useStagePage } from "../../hooks/useStagePage";
+import { useTimer } from "../../hooks/useStagePage";
 
 const isShowing = ref(false);
 const hideTransation = ref(false);
+const remainingTime = ref(0);
 
 const $emit = defineEmits(["next-step", "close", "end-time"]);
 const props = defineProps({
@@ -66,16 +69,34 @@ const props = defineProps({
   },
 });
 
-const { timer } = useStagePage();
+const { timer } = useTimer();
+
+const remainingTimeText = computed(() => {
+  if (remainingTime.value > 100) {
+    return "+100s";
+  }
+
+  return remainingTime.value + "s";
+});
+
+function handleSetRemainingTime(currentTime) {
+  remainingTime.value = currentTime;
+}
 
 function handleToggleOptions() {
   isShowing.value = !isShowing.value;
 }
 
+function handleCloseMenuMenu() {
+  isShowing.value = false;
+}
+
 function handleNextStep() {
+  handleCloseMenuMenu();
   $emit("next-step");
 }
 function handleClose() {
+  handleCloseMenuMenu();
   $emit("close");
 }
 function handleEndTime() {
@@ -93,10 +114,10 @@ window.addEventListener("orientationchange", () => {
 
 <style lang="scss" scoped>
 .side-menu-options {
-  --buttonSize: 40px;
+  --buttonSize: 65px;
 
   position: absolute;
-  top: 60px;
+  top: 70px;
   z-index: 10;
 
   transition: transform 0.2s ease-in;
@@ -125,7 +146,7 @@ window.addEventListener("orientationchange", () => {
   &__button {
     overflow: hidden;
     width: var(--buttonSize);
-    height: var(--buttonSize);
+    height: 40px;
 
     border: 2px solid $primary;
     border-right: 0;
