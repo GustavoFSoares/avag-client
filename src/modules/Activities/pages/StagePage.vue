@@ -48,6 +48,10 @@ const isMobile = computed(() => {
       display: initial;
       padding: 0;
 
+      @media (max-width: $breakpoint-tablet) {
+        overflow-x: hidden;
+      }
+
       &__container {
         height: 100%;
         padding-bottom: initial;

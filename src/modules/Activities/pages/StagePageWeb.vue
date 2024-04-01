@@ -3,7 +3,7 @@
     <div class="stage-page-web__container" v-if="activityData">
       <div class="stage-page-web__header">
         <AvTimer
-          v-if="false && !currentStage.isInformative"
+          v-if="!currentStage.isInformative"
           ref="timer"
           :auto-start="!showingGoal"
           :start-time="currentStage.time"

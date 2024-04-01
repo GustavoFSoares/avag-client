@@ -1,6 +1,15 @@
 <template>
   <section class="stage-page-mobile">
     <div class="stage-page-mobile__container" v-if="activityData">
+      <SideMenuOptions
+        v-if="!showingGoal"
+        :is-last="isLast"
+        :current-stage="currentStage"
+        @next-step="handleNextStep(null)"
+        @end-time="handleEndTime"
+        @close="handleClose"
+      />
+
       <div class="stage-page-mobile__header" v-if="false">
         <AvTimer
           v-if="false && !currentStage.isInformative"
@@ -110,6 +119,8 @@ import AvPage from "organisms/AvPage.vue";
 import StageContent from "../components/StagePage/StageContent.vue";
 import StageEndActivity from "../components/StagePage/StageEndActivity.vue";
 import StagePageSteps from "../components/StagePage/StagePageSteps.vue";
+
+import SideMenuOptions from "../components/StagePageMobile/SideMenuOptions.vue";
 
 import { useStagePage } from "../hooks/useStagePage";
 

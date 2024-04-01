@@ -1,6 +1,8 @@
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, onUpdated, ref, watch } from "vue";
+
+const timer = ref(null);
 
 export function useStagePage() {
   const $route = useRoute();
@@ -11,17 +13,24 @@ export function useStagePage() {
 
   const { id: trailId, stageId } = $route.params;
 
-  const currentStageIndex = ref(0);
-  const timer = ref(null);
   const timedOut = ref(false);
+
+  const currentStageIndex = ref(0);
   const activityData = ref(null);
   const activityIsFinished = ref(false);
   const showingGoal = ref(true);
   const stageIsOpening = ref(false);
 
-  const hasStages = computed(() => activityData.value.stages?.length !== 0);
+  const hasStages = computed(() => {
+    if (!activityData.value) {
+      return false;
+    }
+
+    return activityData.value.stages?.length !== 0;
+  });
+
   const isLast = computed(
-    () => activityData.value.stages?.length === currentStageIndex.value + 1
+    () => activityData.value?.stages?.length === currentStageIndex.value + 1
   );
 
   const currentStage = computed(() => {
@@ -31,6 +40,25 @@ export function useStagePage() {
 
     return activityData.value.stages[currentStageIndex.value];
   });
+
+  function restartTimer() {
+    if (timer.value) {
+      timedOut.value = false;
+      activityIsFinished.value = false;
+      timer.value.restartTimer();
+
+      setTimeout(() => {
+        timer.value.start();
+      }, 3 * 100);
+    }
+  }
+
+  watch(
+    () => currentStageIndex.value,
+    () => {
+      restartTimer();
+    }
+  );
 
   function handleEndTime() {
     timedOut.value = true;
@@ -101,15 +129,6 @@ export function useStagePage() {
     }, 3 * 100);
   }
 
-  function restartTimer() {
-    if (timer.value) {
-      timedOut.value = false;
-      activityIsFinished.value = false;
-      timer.value.restartTimer();
-      timer.value.start();
-    }
-  }
-
   function handleRestartActivity() {
     activityIsFinished.value = false;
 
@@ -151,13 +170,6 @@ export function useStagePage() {
 
     handleNextStep();
   }
-
-  watch(
-    () => currentStageIndex.value,
-    () => {
-      restartTimer();
-    }
-  );
 
   onMounted(async () => {
     loadStageData(stageId);
