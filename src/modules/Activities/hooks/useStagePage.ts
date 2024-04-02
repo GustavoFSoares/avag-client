@@ -48,15 +48,19 @@ export function useStagePage() {
   });
 
   function restartTimer() {
-    if (timer.value) {
-      timedOut.value = false;
-      activityIsFinished.value = false;
-      timer.value.restartTimer();
-
-      setTimeout(() => {
-        timer.value.start();
-      }, 3 * 100);
+    if (currentStage.value.isInformative) {
+      return;
     }
+
+    setTimeout(() => {
+      if (timer.value) {
+        timedOut.value = false;
+        activityIsFinished.value = false;
+        timer.value.restartTimer();
+
+        timer.value.start();
+      }
+    }, 3 * 100);
   }
 
   watch(
@@ -130,7 +134,10 @@ export function useStagePage() {
       stageIsOpening.value = false;
       if (timer.value) {
         timedOut.value = false;
-        timer.value.start();
+
+        if (!currentStage.value.isInformative) {
+          timer.value.start();
+        }
       }
     }, 3 * 100);
   }
