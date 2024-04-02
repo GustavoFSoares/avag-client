@@ -50,6 +50,9 @@ const handleToggleMenu = () => {
     position: relative;
     overflow: auto;
 
+    width: 100%;
+    max-width: 302px;
+
     &::-webkit-scrollbar {
       display: none;
     }

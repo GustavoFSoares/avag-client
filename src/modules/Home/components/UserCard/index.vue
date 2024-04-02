@@ -7,7 +7,7 @@
     >
       <template #header>
         <button
-          v-if="!isMobile"
+          v-if="false && !isMobile"
           class="user-card__open-card-button"
           @click="handleOpenCard"
         >

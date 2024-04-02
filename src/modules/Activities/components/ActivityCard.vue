@@ -3,32 +3,52 @@
     <AvCard class="activity-card__wrapper">
       <template #header>
         <div class="activity-card__image-wrapper">
-          <img class="activity-card__image" :src="imagePath" :alt="cover?.tipo" />
+          <img
+            class="activity-card__image"
+            :src="imagePath"
+            :alt="cover?.tipo"
+          />
         </div>
       </template>
 
       <template #default>
         <div class="activity-card__content">
-          <div v-if="status" :class="[
-            'activity-card__progress-badge',
-            `activity-card__progress-badge--${status}`,
-          ]">
+          <div
+            v-if="status"
+            :class="[
+              'activity-card__progress-badge',
+              `activity-card__progress-badge--${status}`,
+            ]"
+          >
             <QBadge rounded :label="$t(`${I18N_PATH}.status.${status}`)" />
           </div>
 
           <h3 class="activity-card__title">{{ title }}</h3>
 
-          <h4 class="activity-card__description" :title="description" v-if="description">
+          <h4
+            class="activity-card__description"
+            :title="description"
+            v-if="description"
+          >
             {{ description }}
           </h4>
 
-          <div v-if="progress !== null" class="progress-bar" :style="{ '--progress': `${progress}%` }">
+          <div
+            v-if="progress !== null"
+            class="progress-bar"
+            :style="{ '--progress': `${progress}%` }"
+          >
             <div class="progress-bar__progress" />
             <p class="progress-bar__label">{{ progress }}%</p>
           </div>
 
           <div class="activity-card__cta-wrapper">
-            <QBtn size="sm" :label="$t(`${I18N_PATH}.access`)" color="primary" @click="handleStartNow" />
+            <QBtn
+              size="sm"
+              :label="$t(`${I18N_PATH}.access`)"
+              color="primary"
+              @click="handleStartNow"
+            />
           </div>
         </div>
       </template>
