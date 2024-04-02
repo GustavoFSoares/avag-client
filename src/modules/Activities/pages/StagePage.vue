@@ -1,13 +1,8 @@
 <template>
-  <AvPage
-    class="stage-page"
-    title="Estágios"
-    no-header
-    :go-back-route="{
-      name: 'activities.stage-list',
-      params: { id: trailId },
-    }"
-  >
+  <AvPage class="stage-page" title="Estágios" no-header :go-back-route="{
+    name: 'activities.stage-list',
+    params: { id: trailId },
+  }">
     <template #default>
       <component :is="isMobile ? StagePageMobile : StagePageWeb" />
     </template>
@@ -33,6 +28,7 @@ const $q = useQuasar();
 const isMobile = computed(() => {
   return $q.screen.xs || $q.screen.sm;
 });
+
 </script>
 
 <style lang="scss">

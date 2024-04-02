@@ -134,16 +134,16 @@ export default {
             library: !activity.biblioteca
               ? null
               : {
-                  name: activity.biblioteca.nome,
-                  description: activity.biblioteca.descricao,
-                  itens: activity.biblioteca.items.map((item) => ({
-                    id: item.id,
-                    description: item.descricao,
-                    file: item.file.path,
-                    type: iconsMapReplations[item.type],
-                    updatedAt: item.updated_at,
-                  })),
-                },
+                name: activity.biblioteca.nome,
+                description: activity.biblioteca.descricao,
+                itens: activity.biblioteca.items.map((item) => ({
+                  id: item.id,
+                  description: item.descricao,
+                  file: item.file.path,
+                  type: iconsMapReplations[item.type],
+                  updatedAt: item.updated_at,
+                })),
+              },
           };
         })
 
@@ -217,7 +217,7 @@ export default {
               time: stage.tempo,
               content,
               completed: false,
-              isInformative: stage.informativo,
+              isInformative: stage?.informativo,
               informativeText: stage.titulo,
               canNext,
             };
@@ -276,7 +276,7 @@ export default {
   },
   timeOut: async (
     _,
-    { trailId, activityId, stageId, trailStudentStageId  }
+    { trailId, activityId, stageId, trailStudentStageId }
   ) => {
     console.log("TIME OUT", {
       trilha_id: trailId,
