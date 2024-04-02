@@ -60,6 +60,7 @@
         class="stage-list-detail__start-activity"
         :label="$t(`${I18N_PATH}.startActivity`)"
         color="primary"
+        :disable="stage.types?.length === 0"
         :to="{
           name: 'activities.stage',
           params: {
@@ -68,6 +69,8 @@
           },
         }"
       />
+
+      <p v-if="stage.types?.length === 0">Sem fases cadastradas</p>
 
       <div class="library" v-if="stage.library">
         <h4 class="library__title">{{ $t(`${I18N_PATH}.library`) }}:</h4>
@@ -172,9 +175,8 @@ const handleOpenDocument = ({ id, file }) => {
 
   width: 500px;
   @media (max-width: $breakpoint-mobile) {
-    width: 90vw
+    width: 90vw;
   }
-
 
   &__content {
     display: flex;

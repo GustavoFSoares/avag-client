@@ -122,7 +122,7 @@ export default {
     position: absolute;
     width: 68px;
     height: 14px;
-    background: $white;
+    background: transparent;
     left: -2px;
   }
 
@@ -160,7 +160,8 @@ export default {
     user-select: none;
   }
 
-  &__locked, &__completed-flag {
+  &__locked,
+  &__completed-flag {
     position: absolute;
     top: 85%;
 
