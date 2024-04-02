@@ -1,9 +1,9 @@
 <template>
   <section class="login-page">
     <AvCard @keyup.enter="handleSubmit" class="login-page__card">
-      <div class="login-page__wrapper ">
+      <div class="login-page__wrapper">
         <div class="login-page__wrapper__avg">
-        <div class="login-page__wrapper__avg__logo"></div>
+          <div class="login-page__wrapper__avg__logo"></div>
         </div>
         <article class="login-page__form">
           <QInput
@@ -62,9 +62,9 @@
 </template>
 
 <script>
-import {computed, ref} from "vue";
-import {useStore} from "vuex";
-import {useRouter} from "vue-router";
+import { computed, ref } from "vue";
+import { useStore } from "vuex";
+import { useRouter } from "vue-router";
 
 import AvCard from "atoms/AvCard.vue";
 
@@ -106,7 +106,7 @@ export default {
         return;
       }
 
-      $route.push({name: "home"});
+      $route.push({ name: "home" });
     };
 
     return {
@@ -136,9 +136,6 @@ export default {
     align-content: center;
     position: relative;
 
-
-
-
     &__avg {
       width: 220px;
       height: 100px;
@@ -159,7 +156,6 @@ export default {
         position: absolute;
         z-index: 0;
         opacity: 0.3;
-
       }
     }
   }

@@ -5,9 +5,13 @@ html, body {
   background-color: #00e2ff;
   background-size: cover;
   background-position: center;
-  background-image: url("/background.webp");
+  background-image: url("/background/teen/background.png");
   height: 100%;
   overflow: auto;
+
+  &:has(.auth-layout) {
+    background-image: url("/background/teen/login.png");
+  }
 
   &:has(.stage-page),
   &:has(.stage-list-page) {
