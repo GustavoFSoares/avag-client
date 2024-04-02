@@ -223,7 +223,7 @@ watch(
 onMounted(async () => {
   loadStageData(stageId);
 });
->>>>>>> 9d8860a (atualizando estrutura base)
+
 </script>
 
 <style lang="scss">
