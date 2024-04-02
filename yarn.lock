@@ -3406,10 +3406,10 @@ vite@^2.9.13:
   optionalDependencies:
     fsevents "~2.3.2"
 
-vue-avatar-creator@^0.1.10:
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/vue-avatar-creator/-/vue-avatar-creator-0.1.10.tgz#44d451906730a136a03cf9ad8c40c49a6757cf5b"
-  integrity sha512-84vl0sI7PCXp6cjR8nxocKSd9Vt283eBPnSyPrdIxJJTkZ+FOpZ0UpNQcvwTWwony9docr2R+mAVo/lwIG15vg==
+vue-avatar-creator@^0.1.11:
+  version "0.1.11"
+  resolved "https://registry.yarnpkg.com/vue-avatar-creator/-/vue-avatar-creator-0.1.11.tgz#fb13794d8ad1e8cb730ae9414ce99eb8df68ed08"
+  integrity sha512-cyf4zPmCxA4ZaCAO1pV9eGYyp2NOHyff6+HSDs8N7dOfLLA11rd2i7CjRnmcPeTMAISczByyqj6UPAAnuu3+cw==
   dependencies:
     mix-css-color "^0.2.0"
     pinia "^2.1.4"

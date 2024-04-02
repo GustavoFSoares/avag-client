@@ -3,52 +3,24 @@
     <div v-if="!hideHeader" class="activities-list__header">
       <h2 class="activities-list__title">{{ title }}</h2>
 
-      <QBtn
-        flat
-        :icon="!isOpen ? 'add' : 'remove'"
-        :label="`
+      <QBtn flat :icon="!isOpen ? 'add' : 'remove'" :label="`
           ${!isOpen ? $t(`${I18N_PATH}.seeMore`) : $t(`${I18N_PATH}.seeLess`)}
-        `"
-        color="primary"
-        padding="xs"
-        @click="handleToggleActivities"
-      />
+        `" color="primary" padding="xs" @click="handleToggleActivities" />
     </div>
 
-    <transition-group
-      class="activities-list__activities"
-      tag="div"
-      v-bind:css="false"
-      v-on:enter="enter"
-    >
-      <ActivityCard
-        v-for="(activity, activityIndex) in currentActivities"
-        :class="[
-          activityIndex,
-          'activities-list__item',
-          { 'activities-list__item--enter': !activity.enter },
-        ]"
-        :key="`activity-${activityIndex}-open-${isOpen}`"
-        :data-index="activityIndex"
-        :title="activity.name"
-        :cover="activity.cover"
-        :progress="activity.progress"
-        @startNow="handleStartActivity(activity.id)"
-      />
+    <transition-group class="activities-list__activities" tag="div" v-bind:css="false" v-on:enter="enter">
+      <ActivityCard v-for="(activity, activityIndex) in currentActivities" :class="[
+    activityIndex,
+    'activities-list__item',
+    { 'activities-list__item--enter': !activity.enter },
+  ]" :key="`activity-${activityIndex}-open-${isOpen}`" :data-index="activityIndex" :title="activity.name"
+        :cover="activity.cover" :progress="activity.progress" @startNow="handleStartActivity(activity.id)" />
     </transition-group>
   </div>
 
-  <QDialog
-    :model-value="!!showPresentation"
-    persistent
-    maximized
-    transition-show="slide-up"
-    transition-hide="slide-down"
-  >
-    <ActivitiesPresentation
-      :presentation-id="showPresentation"
-      @ended="startActivity()"
-    />
+  <QDialog :model-value="!!showPresentation" persistent maximized transition-show="slide-up"
+    transition-hide="slide-down">
+    <ActivitiesPresentation :presentation-id="showPresentation" @ended="startActivity()" />
   </QDialog>
 </template>
 

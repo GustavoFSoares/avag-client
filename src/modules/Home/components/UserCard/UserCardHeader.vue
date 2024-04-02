@@ -16,21 +16,12 @@
         </div>
 
         <div class="user-edit">
-          <QBtn
-            flat
-            round
-            icon="edit"
-            color="primary"
-            :to="{ name: 'user.edit' }"
-            :title="$t(`${I18N_PATH}.editUser`)"
-          />
+          <QBtn flat round icon="edit" color="primary" :to="{ name: 'user.edit' }"
+            :title="$t(`${I18N_PATH}.editUser`)" />
         </div>
       </div>
 
-      <div
-        :class="['level-bar', { 'level-bar--is-close': isClose }]"
-        :style="{ '--bar-progress': `${barProgress}%` }"
-      >
+      <div :class="['level-bar', { 'level-bar--is-close': isClose }]" :style="{ '--bar-progress': `${barProgress}%` }">
         <div class="level-bar-progress" />
 
         <div class="level-bar-index">
@@ -70,9 +61,7 @@ const $store = useStore();
 const $router = useRouter();
 
 const userData = computed(() => $store.getters["AuthModule/userData"]);
-const avatarData = computed(
-  () => $store.getters["AuthModule/avatar/avatarOptions"]
-);
+const avatarData = computed(() => $store.getters["AuthModule/avatar/avatarOptions"]);
 
 const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
@@ -81,9 +70,7 @@ const indexes = computed(() => ({
   end: userData.value.range.end,
 }));
 
-const barProgress = computed(
-  () => (rewardsData.value.points / indexes.value.end) * 100
-);
+const barProgress = computed(() => (rewardsData.value.points / indexes.value.end) * 100);
 
 const levelFormatter = (val) => {
   return val.toLocaleString("pt-BR");
