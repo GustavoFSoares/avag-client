@@ -1,18 +1,10 @@
 <template>
   <div class="stage-content">
-    <StageInformative
-      v-if="isInformative"
-      :path="content"
-      :title="informativeTitle"
-      :description="informativeDescription"
-    />
+    <StageInformative v-if="isInformative" :path="content" :title="informativeTitle"
+      :description="informativeDescription" />
 
-    <component
-      v-else-if="renderComponent && stageFileTypeComponent"
-      :is="stageFileTypeComponent"
-      :path="content"
-      @finish="handleFinish"
-    />
+    <component v-else-if="renderComponent && stageFileTypeComponent" :is="stageFileTypeComponent" :path="content"
+      @finish="handleFinish" />
   </div>
 </template>
 
