@@ -62,7 +62,7 @@ const elements = [
       width: 150px;
       height: 150px;
 
-      transform: translate(50px, 1%) rotate(10deg);
+      transform: translate(12vw, 1%) rotate(10deg);
 
       top: 0;
       left: 0;
@@ -72,7 +72,7 @@ const elements = [
       width: 350px;
       height: 350px;
 
-      transform: translate(150px, 15%) rotate(-10deg);
+      transform: translate(35vw, 15%) rotate(-10deg);
 
       top: 0;
       left: 0;
@@ -82,7 +82,7 @@ const elements = [
       width: 300px;
       height: 300px;
 
-      transform: translate(15px, 5%) rotate(5deg);
+      transform: translate(5vw, 5%) rotate(5deg);
 
       bottom: 0;
       right: 0;
@@ -93,7 +93,7 @@ const elements = [
         width: 250px;
         height: 250px;
 
-        transform: translate(50px, 1%) rotate(10deg);
+        transform: translate(10vw, 1%) rotate(10deg);
 
         top: 0;
         left: 0;
@@ -103,7 +103,7 @@ const elements = [
         width: 400px;
         height: 400px;
 
-        transform: translate(400px, 5%) rotate(-10deg);
+        transform: translate(52vw, 5%) rotate(-10deg);
 
         top: 0;
         left: 0;
@@ -113,7 +113,7 @@ const elements = [
         width: 500px;
         height: 500px;
 
-        transform: translate(150px, 40%) rotate(5deg);
+        transform: translate(20vw, 40%) rotate(5deg);
 
         bottom: 0;
         left: 0;
@@ -125,7 +125,7 @@ const elements = [
         width: 300px;
         height: 300px;
 
-        transform: translate(450px, 1%) rotate(10deg);
+        transform: translate(30vw, 1%) rotate(10deg);
 
         top: 0;
         left: 0;
@@ -135,7 +135,7 @@ const elements = [
         width: 600px;
         height: 600px;
 
-        transform: translate(0, 50%) rotate(-10deg);
+        transform: translate(2vw, 50%) rotate(-10deg);
 
         top: 0;
         left: 0;
@@ -145,7 +145,7 @@ const elements = [
         width: 700px;
         height: 700px;
 
-        transform: translate(800px, 30%) rotate(5deg);
+        transform: translate(60vw, 30%) rotate(5deg);
 
         top: 0;
         right: 0;
