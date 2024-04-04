@@ -1,15 +1,9 @@
 <template>
   <BaseLayout class="main-layout">
-    <div
-      :class="`decoration-item decoration-item--${element.id}`"
-      v-for="(element, elementIndex) in elements"
-      :key="elementIndex"
-    >
-      <img
-        class="decoration-item__wrapper"
-        :src="`public/background/${theme}/decorations/${element.id}.png`"
-        :alt="element.alt"
-      />
+    <div :class="`decoration-item decoration-item--${element.id}`" v-for="(element, elementIndex) in elements"
+      :key="elementIndex">
+      <img class="decoration-item__wrapper" :src="/background/${ theme } /decorations/${ element.id }.png`"
+        :alt="element.alt" />
     </div>
 
     <div class="app-container">
@@ -17,17 +11,9 @@
 
       <router-view />
 
-      <QDialog
-        :model-value="!!showPresentation"
-        persistent
-        maximized
-        transition-show="slide-up"
-        transition-hide="slide-down"
-      >
-        <ActivitiesPresentation
-          :presentation-id="showPresentation"
-          @ended="closePresentation"
-        />
+      <QDialog :model-value="!!showPresentation" persistent maximized transition-show="slide-up"
+        transition-hide="slide-down">
+        <ActivitiesPresentation :presentation-id="showPresentation" @ended="closePresentation" />
       </QDialog>
     </div>
   </BaseLayout>
