@@ -123,6 +123,7 @@ module.exports = configure(function (/* ctx */) {
       //
       components: [
         [
+          "QRating",
           "QBadge",
           "QCard",
           "QDialog",
@@ -150,9 +151,7 @@ module.exports = configure(function (/* ctx */) {
       // directives: [],
 
       // Quasar plugins
-      plugins: [
-        'SessionStorage'
-      ],
+      plugins: ["SessionStorage"],
     },
 
     // animations: 'all', // --- includes all animations

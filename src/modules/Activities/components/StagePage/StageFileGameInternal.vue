@@ -44,6 +44,7 @@ const InternalGamesMap = {
   "Quiz--acerte-figura-multipla-escolha":
     "games/quiz_acerte_as_figuras_multipla_escolha",
   "Quiz--avaliacao": "games/quiz_provas/avaliacao",
+  "Quiz--avaliacao-resposta": "games/quiz_provas/response",
   "quebra-cabeca": "games/quiz_quebra_cabeca",
 };
 
@@ -69,6 +70,7 @@ const gameComponent = computed(() => {
   const gamesMap = {
     "7-erros": SevenErrors,
     "Quiz--avaliacao": ExamGame,
+    "Quiz--avaliacao-resposta": ExamGame,
     "jogo-memoria": MemoryGame,
     "quebra-cabeca": PuzzleGame,
     "Quiz--acerte-figura-multipla-escolha": ExamMuptipleChooseGame,
@@ -114,4 +116,3 @@ onMounted(() => {
   }
 }
 </style>
-

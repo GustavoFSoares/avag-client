@@ -152,11 +152,12 @@ export function useStagePage() {
     currentStageIndex.value = 0;
   }
 
-  const loadStageData = async (currentStageId) => {
+  const loadStageData = async ({ trailId, stageId }) => {
     activityData.value = await $store.dispatch(
       "ActivitiesModule/getStagesData",
       {
-        stageId: currentStageId,
+        trailId,
+        stageId,
       }
     );
 
@@ -185,7 +186,7 @@ export function useStagePage() {
   }
 
   onMounted(async () => {
-    loadStageData(stageId);
+    loadStageData({ trailId, stageId });
   });
 
   return {

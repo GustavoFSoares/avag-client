@@ -3,7 +3,7 @@
     :class="[
       'stage-item',
       {
-        'stage-item--completed no-pointer-events': completed,
+        'stage-item--completed': completed,
         'stage-item--blocked': !active,
       },
     ]"
@@ -135,7 +135,7 @@ export default {
     position: relative;
 
     cursor: pointer;
-    background-color: rgb(205, 0, 41);
+    background-color: $primary;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
       rgba(0, 0, 0, 0.3) 0px 18px 36px -18px,
       rgba(50, 50, 93, 0.25) 0px 50px 100px -20px inset,

@@ -110,8 +110,7 @@ export default {
             },
             types: activity.estagios.reduce((amount, stage) => {
               if (
-                amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !==
-                -1
+                amount.indexOf(iconsMapReplations[stage.tipo.descricao]) !== -1
               ) {
                 return amount;
               }
@@ -134,94 +133,147 @@ export default {
             library: !activity.biblioteca
               ? null
               : {
-                name: activity.biblioteca.nome,
-                description: activity.biblioteca.descricao,
-                itens: activity.biblioteca.items.map((item) => ({
-                  id: item.id,
-                  description: item.descricao,
-                  file: item.file.path,
-                  type: iconsMapReplations[item.type],
-                  updatedAt: item.updated_at,
-                })),
-              },
+                  name: activity.biblioteca.nome,
+                  description: activity.biblioteca.descricao,
+                  itens: activity.biblioteca.items.map((item) => ({
+                    id: item.id,
+                    description: item.descricao,
+                    file: item.file.path,
+                    type: iconsMapReplations[item.type],
+                    updatedAt: item.updated_at,
+                  })),
+                },
           };
-        })
+        });
 
-      const completedActivityCount = activitiesData.filter(activity => activity.completed).length
+      const completedActivityCount = activitiesData.filter(
+        (activity) => activity.completed
+      ).length;
 
       return {
         name: data.nome,
         description: data.descricao,
         cover: data.capa,
         goal: data.objetivo,
-        progress: completedActivityCount * 100 / activitiesData.length,
+        progress: (completedActivityCount * 100) / activitiesData.length,
         reward: {
           coins: 12,
           points: 50,
         },
-        activities: activitiesData
+        activities: activitiesData,
       };
     } catch (err) {
       console.error("Courses Data by ID Error", err);
     }
   },
-  getStagesData: async (_, { stageId }) => {
+  getCompletedStageData: async (
+    _,
+    { alunoId, trilhaId, turmaId, atividadeId, estagioId }
+  ) => {
+    const {
+      data: { data },
+    } = await api.post("alunos/resposta/avaliacao", {
+      aluno_id: alunoId,
+      trilha_id: trilhaId,
+      turma_id: turmaId,
+      atividade_id: atividadeId,
+      estagio_id: estagioId,
+    });
+
+    if (!data || data.length === 0) {
+      return null;
+    }
+
+    const response = data[0];
+
+    return {
+      questions: response.game_response_data,
+      teacherResponse: response.avaliacao.retorno,
+      rate: response.avaliacao.rating,
+    };
+  },
+  getStagesData: async ({ dispatch, rootGetters }, { trailId, stageId }) => {
     try {
+      const userData = rootGetters["AuthModule/userData"];
+
       const {
         data: { data },
       } = await api.post("alunos/estagio", {
         id: stageId,
+        trilha_id: trailId,
+        aluno_id: userData.studentId,
+        turma_id: userData.classId,
       });
+
+      const stages = data.atividades.estagios
+        .filter((stage) => stage.status === "ativo")
+        .map(async (stage) => {
+          console.log(stage);
+          const type = iconsMapReplations[stage.tipo.descricao];
+          const content = stage.conteudo;
+
+          let canNext = true;
+
+          if (type === "game-internal") {
+            canNext = false;
+
+            const gamesImages = stage.games_internos_images;
+
+            switch (stage.conteudo.game) {
+              case "7-erros":
+                break;
+
+              case "Quiz":
+                let tipo = content.tipo;
+                if (content.tipo === "avaliacao") {
+                  const response = await dispatch("getCompletedStageData", {
+                    alunoId: userData.studentId,
+                    trilhaId: stage.trilha_id,
+                    turmaId: userData.classId,
+                    atividadeId: stage.atividade_id,
+                    estagioId: stage.id,
+                  });
+
+                  content.gameData = { ...content.gameData, response };
+
+                  if (response) {
+                    tipo += "-resposta";
+                  }
+                }
+                // canNext = false;
+                content.game += `--${tipo}`;
+                break;
+
+              default:
+                console.warn(`Game "${stage.conteudo.game}" not found`);
+                break;
+            }
+          }
+
+          return {
+            id: stage.id,
+            description: stage.descricao,
+            type,
+            time: stage.tempo,
+            content,
+            completed: false,
+            // completed: false,
+            isInformative: stage?.informativo,
+            informativeText: stage.titulo,
+            canNext,
+          };
+        });
 
       return {
         id: data.id,
         name: data.nome,
         description: data.descricao,
+        stages: await Promise.all(stages),
         reward: {
           coins: data.moedas,
           points: data.pontos,
         },
         // trailStudentStageId: data.trilhas_alunos_stagios[0],
-        stages: data.estagios
-          .filter((stage) => stage.status === "ativo")
-          .map((stage) => {
-            const type = iconsMapReplations[stage.tipo.descricao];
-            const content = stage.conteudo;
-
-            let canNext = true;
-
-            if (type === "game-internal") {
-              canNext = false;
-
-              const gamesImages = stage.games_internos_images;
-
-              switch (stage.conteudo.game) {
-                case "7-erros":
-                  break;
-
-                case "Quiz":
-                  // canNext = false;
-                  content.game += `--${content.tipo}`;
-                  break;
-
-                default:
-                  console.warn(`Game "${stage.conteudo.game}" not found`);
-                  break;
-              }
-            }
-
-            return {
-              id: stage.id,
-              description: stage.descricao,
-              type,
-              time: stage.tempo,
-              content,
-              completed: false,
-              isInformative: stage?.informativo,
-              informativeText: stage.titulo,
-              canNext,
-            };
-          }),
       };
     } catch (err) {
       console.error("Stage Data by ID Error", err);
@@ -274,16 +326,13 @@ export default {
       console.error("", err);
     }
   },
-  timeOut: async (
-    _,
-    { trailId, activityId, stageId, trailStudentStageId }
-  ) => {
+  timeOut: async (_, { trailId, activityId, stageId, trailStudentStageId }) => {
     console.log("TIME OUT", {
       trilha_id: trailId,
       atividade_id: activityId,
       estagio_id: stageId,
       trilhas_alunos_stagios_id: trailStudentStageId,
-    })
+    });
 
     await api.post("alunos/trilha-aluno-estagio-resposta", {
       trilha_id: trailId,
@@ -320,12 +369,12 @@ export default {
     }
   },
   getActivityPresentationId() {
-    const hasPresentation = SessionStorage.getItem('presentation')
+    const hasPresentation = SessionStorage.getItem("presentation");
     if (hasPresentation) {
-      return null
+      return null;
     }
 
-    SessionStorage.set('presentation', true)
+    SessionStorage.set("presentation", true);
 
     const randomPresentation =
       Math.floor(Math.random() * MAX_PRESENTATIONS) + 1;

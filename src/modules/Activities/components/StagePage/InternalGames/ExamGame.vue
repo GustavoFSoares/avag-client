@@ -1,5 +1,27 @@
 <template>
   <div class="exam-game">
+    <div class="teacher-response" v-if="teacherResponse">
+      <p class="teacher-response__text">
+        <span class="teacher-response__text-highlight">
+          Resposta do professor:
+        </span>
+
+        {{ teacherResponse.response }}
+      </p>
+
+      <QRating
+        :modelValue="10 / teacherResponse.rate"
+        max="5"
+        size="3.5em"
+        color="yellow"
+        icon="star_border"
+        icon-selected="star"
+        icon-half="star_half"
+        no-dimming
+        readonly
+      />
+    </div>
+
     <iframe :src="url" ref="iframeElement" @load="handleLoad" />
   </div>
 </template>
@@ -11,6 +33,7 @@ const { appContext } = getCurrentInstance();
 const $emit = defineEmits(["finish"]);
 
 const iframeElement = ref(null);
+const teacherResponse = ref(null);
 
 const props = defineProps({
   url: {
@@ -26,17 +49,36 @@ const props = defineProps({
 const handleLoad = () => {
   const params = JSON.parse(JSON.stringify(props.parameters || {}));
 
-  const gameOptions = {
-    avaliacao: params.avaliacao.map((item) => ({
-      ...item,
-      path: item.path
-        ? `${appContext.config.globalProperties.$appStorage}/${item.path}`
-        : null,
-    })),
+  let gameOptions = {
+    avaliacao: params.avaliacao.map((item) => {
+      let path = item.path ? item.path : null;
+      if (!params.response) {
+        path = `${appContext.config.globalProperties.$appStorage}/${item.path}`;
+      }
+
+      return {
+        ...item,
+        path,
+      };
+    }),
     tituloAvaliacao: params.questionTitle,
   };
 
-  iframeElement.value.contentWindow.postMessage({ avag: { gameOptions } }, "*");
+  if (params.response) {
+    gameOptions = {
+      params: gameOptions,
+      response: JSON.parse(JSON.stringify(params.response.questions)),
+    };
+
+    teacherResponse.value = {
+      response: params.response.teacherResponse,
+      rate: params.response.rate,
+    };
+  } else {
+    gameOptions = { gameOptions };
+  }
+
+  iframeElement.value.contentWindow.postMessage({ avag: gameOptions }, "*");
 
   window.onmessage = ({ data }) => {
     if (data.avag && data.avag.status === "finish") {
@@ -51,6 +93,19 @@ const handleLoad = () => {
   max-width: 1150px;
   margin: 0 auto;
   height: 100%;
+
+  .teacher-response {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: center;
+    margin-bottom: 10px;
+
+    &__text {
+      font-weight: $font-weight-bold;
+      font-size: 14px;
+    }
+  }
 
   iframe {
     width: 100%;

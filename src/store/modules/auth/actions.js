@@ -23,9 +23,11 @@ export default {
             const { avatar, ...userProfile } = userData.user;
 
             const [startRange, endRange] = userData.profile.intervalo;
+
             commit("SET_USER", {
               ...userProfile,
               studentId: userProfile.aluno.id,
+              classId: userProfile.aluno.turmas[0].id,
               nivel: userData.profile.nivel,
               range: {
                 start: startRange,
@@ -104,6 +106,7 @@ export default {
           commit("SET_USER", {
             ...userProfile,
             studentId: userData.user.aluno.id,
+            classId: userData.turma.id,
             nivel: userData.profile.nivel,
             range: {
               start: startRange,
@@ -161,7 +164,7 @@ export default {
   invalidateUser: ({ commit }) => {
     commit("SET_USER", null);
     commit("SET_TOKEN", null);
-    SessionStorage.remove('presentation')
+    SessionStorage.remove("presentation");
   },
   doRestartPassword: async ({ dispatch }, { username }) => {
     dispatch("setLoading", true);

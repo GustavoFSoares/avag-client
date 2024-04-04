@@ -3,7 +3,7 @@
     <div class="stage-page-web__container" v-if="activityData">
       <div class="stage-page-web__header">
         <AvTimer
-          v-if="!currentStage.isInformative"
+          v-if="currentStage.time && !currentStage.isInformative"
           ref="timer"
           :start-time="currentStage.time"
           @end-time="handleEndTime"
@@ -59,7 +59,7 @@
               <QBtn
                 class="stage-wrapper__button"
                 :label="isLast ? 'Concluir' : 'Próximo'"
-                color="secondary"
+                color="primary"
                 :disable="!currentStage.canNext"
                 @click="handleNextStep(null)"
               />

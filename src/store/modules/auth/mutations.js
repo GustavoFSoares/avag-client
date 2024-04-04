@@ -20,6 +20,7 @@ export default {
       name: user.nome,
       levelName: user.nivel,
       studentId: user.studentId,
+      classId: user.classId,
       range: user.range,
     };
   },
