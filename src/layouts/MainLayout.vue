@@ -2,7 +2,7 @@
   <BaseLayout class="main-layout">
     <div :class="`decoration-item decoration-item--${element.id}`" v-for="(element, elementIndex) in elements"
       :key="elementIndex">
-      <img class="decoration-item__wrapper" :src="/background/${ theme } /decorations/${ element.id }.png`"
+      <img class="decoration-item__wrapper" :src="`/background/${theme}/decorations/${element.id}.png`"
         :alt="element.alt" />
     </div>
 
