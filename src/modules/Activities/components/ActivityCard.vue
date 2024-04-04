@@ -140,7 +140,10 @@ export default {
 
     &:deep(.av-card__header) {
       flex-grow: 1;
-      max-width: 250px;
+
+      @media (min-width: $breakpoint-mobile) and (max-width: $breakpoint-tablet) {
+        max-width: 180px;
+      }
     }
 
     @media (max-width: $breakpoint-mobile) {
@@ -158,7 +161,6 @@ export default {
       height: 100%;
 
       background: #ff00008f;
-      border-radius: 8px;
       overflow: hidden;
 
       @media (min-width: $breakpoint-tablet) {

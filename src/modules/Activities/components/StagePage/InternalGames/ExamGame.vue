@@ -10,7 +10,7 @@
       </p>
 
       <QRating
-        :modelValue="10 / teacherResponse.rate"
+        :modelValue="teacherResponse.rate"
         max="5"
         size="3.5em"
         color="yellow"
@@ -52,7 +52,7 @@ const handleLoad = () => {
   let gameOptions = {
     avaliacao: params.avaliacao.map((item) => {
       let path = item.path ? item.path : null;
-      if (!params.response) {
+      if (path && !params.response) {
         path = `${appContext.config.globalProperties.$appStorage}/${item.path}`;
       }
 
@@ -70,10 +70,12 @@ const handleLoad = () => {
       response: JSON.parse(JSON.stringify(params.response.questions)),
     };
 
-    teacherResponse.value = {
-      response: params.response.teacherResponse,
-      rate: params.response.rate,
-    };
+    if (params.response.avaliacao) {
+      teacherResponse.value = {
+        response: params.response.avaliacao.teacherResponse,
+        rate: params.response.avaliacao.rate,
+      };
+    }
   } else {
     gameOptions = { gameOptions };
   }

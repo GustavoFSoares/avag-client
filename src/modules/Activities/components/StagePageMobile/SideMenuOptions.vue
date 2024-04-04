@@ -17,7 +17,7 @@
       <div class="side-menu-options__content">
         <div class="side-menu-options__timer-wrapper">
           <AvTimer
-            v-if="!currentStage.isInformative"
+            v-if="currentStage.time && !currentStage.isInformative"
             ref="timer"
             :start-time="currentStage.time"
             @end-time="handleEndTime"
@@ -29,7 +29,7 @@
           <QBtn
             class="stage-wrapper__button"
             :label="isLast ? 'Concluir' : 'Próximo'"
-            color="secondary"
+            color="primary"
             @click="handleNextStep"
             :disable="!currentStage.canNext"
           />

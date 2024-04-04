@@ -185,11 +185,18 @@ export default {
     }
 
     const response = data[0];
+    if (!response.game_response_data) {
+      return null;
+    }
 
     return {
       questions: response.game_response_data,
-      teacherResponse: response.avaliacao.retorno,
-      rate: response.avaliacao.rating,
+      avaliacao: !response.avaliacao
+        ? null
+        : {
+            teacherResponse: response.avaliacao.retorno,
+            rate: response.avaliacao.rating,
+          },
     };
   },
   getStagesData: async ({ dispatch, rootGetters }, { trailId, stageId }) => {
@@ -208,7 +215,6 @@ export default {
       const stages = data.atividades.estagios
         .filter((stage) => stage.status === "ativo")
         .map(async (stage) => {
-          console.log(stage);
           const type = iconsMapReplations[stage.tipo.descricao];
           const content = stage.conteudo;
 
@@ -234,13 +240,15 @@ export default {
                     estagioId: stage.id,
                   });
 
-                  content.gameData = { ...content.gameData, response };
-
                   if (response) {
+                    stage.tempo = null;
+
+                    content.gameData = { ...content.gameData, response };
+
                     tipo += "-resposta";
+                    canNext = true;
                   }
                 }
-                // canNext = false;
                 content.game += `--${tipo}`;
                 break;
 
