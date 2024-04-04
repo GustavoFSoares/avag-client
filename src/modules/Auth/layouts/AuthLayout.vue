@@ -38,6 +38,11 @@ const elements = [
   align-items: center;
   overflow: hidden;
 
+
+
+
+
+
   .decoration-item {
     width: 250px;
     height: 250px;
@@ -57,6 +62,21 @@ const elements = [
       height: 150px;
 
       transform: translate(12vw, 1%) rotate(10deg);
+
+      animation-duration: 3s;
+      animation-name: slidein;
+      -moz-animation-duration: 3s;
+      -webkit-animation-duration: 3s;
+      animation-duration: 3s;
+      -moz-animation-name: slidein;
+      -webkit-animation-name: slidein;
+      animation-name: slidein;
+      -moz-animation-iteration-count: 3;
+      -webkit-animation-iteration-count: 3;
+      animation-iteration-count: 3;
+      -moz-animation-direction: alternate;
+      -webkit-animation-direction: alternate;
+      animation-direction: alternate;
 
       top: 0;
       left: 0;
@@ -150,6 +170,43 @@ const elements = [
   &__container {
     max-width: 400px;
     width: 100%;
+  }
+
+
+  @keyfra@-moz-keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+
+  @-webkit-keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
+  }
+
+  @keyframes slidein {
+    from {
+      margin-left: 100%;
+      width: 300%;
+    }
+
+    to {
+      margin-left: 0%;
+      width: 100%;
+    }
   }
 }
 </style>
