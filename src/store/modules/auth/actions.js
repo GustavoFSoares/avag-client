@@ -179,8 +179,7 @@ export default {
     const { id: userId } = getters.userData;
 
     try {
-      alert("Editar Usuário: ");
-      // await api.put(`/user/${userId}`, userData);
+      await api.put(`/user/${userId}`, userData);
     } catch (err) {
       console.log(err);
     }

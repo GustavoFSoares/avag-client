@@ -3,12 +3,12 @@
     <template #default>
       <div class="edit-user__wrapper">
         <div class="edit-user__form">
-          <QInput class="edit-user__form-name" outlined v-model="userData?.name"
+          <QInput class="edit-user__form-name" outlined v-model="userName"
             :label="$t(`${I18N_PATH}.form.name`)" />
 
-          <QInput class="edit-user__form-email" outlined disable v-model="userData.email"
+          <QInput class="edit-user__form-email" outlined disable v-model="userEmail"
             :label="$t(`${I18N_PATH}.form.email`)" />
-          <QInput class="edit-user__form-level" outlined disable v-model="userData.levelName"
+          <QInput class="edit-user__form-level" outlined disable v-model="levelName"
             :label="$t(`${I18N_PATH}.form.levelName`)" />
         </div>
 
@@ -36,25 +36,27 @@ import AvPageSection from "molecules/AvPageSection.vue";
 const $store = useStore();
 const $router = useRouter();
 
-const userData = ref({});
+const userName = ref();
+const userEmail = ref();
+const levelName = ref();
 
 
 const handleSubmit = async () => {
-  await $store.dispatch("AuthModule/updateUser", userData)
-
+  await $store.dispatch("AuthModule/updateUser", {
+    name: userName.value,
+    email: userEmail.value,
+    levelName: levelName.value,
+  })
   console.warn('PARA REDIRECIONAR, olhe aqui')
-  $router.push({ name: "home" });
+  // $router.push({ name: "home" });
 };
 
 
 onMounted(() => {
   const storedData = $store.getters["AuthModule/userData"]
-
-  userData.value = {
-    name: storedData.name,
-    email: storedData.email,
-    levelName: storedData.levelName
-  }
+  userName.value = storedData.name
+  userEmail.value = storedData.email
+  levelName.value = storedData.levelName
 });
 
 </script>

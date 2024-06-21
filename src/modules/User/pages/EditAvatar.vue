@@ -101,6 +101,7 @@ onMounted(() => {
     position: relative;
     background: $white;
     border-radius: $default-border-radius;
+    // transform: translate(-14px);
   }
 
   &__avatar-options {
@@ -165,6 +166,10 @@ onMounted(() => {
     &__reward {
       max-width: 200px;
     }
+  }
+
+  .avatar-preview {
+    transform: translate(-17px);
   }
 
   .avatar {
