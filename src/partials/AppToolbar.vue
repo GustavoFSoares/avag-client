@@ -31,10 +31,6 @@
         <QIcon class="controls__icon" name="fa-solid fa-bell" />
       </div>
 
-      <div class="cloud">
-        <QIcon class="controls__icon" name="fa-solid fa-cloud" />
-      </div>
-
       <AppToolbarSettings />
     </div>
   </QToolbar>
@@ -67,6 +63,10 @@ const handleClickNavigationItem = () => {
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  .notification {
+    cursor: pointer;
+  }
 
   &__logo {
     width: fit-content;

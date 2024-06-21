@@ -44,7 +44,7 @@
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 import { computed, onMounted, ref, defineProps } from "vue";
-import { AvatarCreatorViewer } from "vue-avatar-creator";
+import { AvatarCreatorViewer } from "avag-avatar-creator";
 
 import AvReward from "molecules/AvReward.vue";
 

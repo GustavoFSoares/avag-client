@@ -23,12 +23,12 @@
 <script setup>
 const I18N_PATH = "modules.user.pages.edit";
 
-import "vue-avatar-creator/dist/style.css";
+import "avag-avatar-creator/dist/style.css";
 import {
   AvatarCreatorOptions,
   AvatarCreatorViewer,
   useAvatarCreatorStore,
-} from "vue-avatar-creator";
+} from "avag-avatar-creator";
 
 import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";

@@ -1,5 +1,5 @@
 import { api } from "boot/axios";
-import { defaultAvatar } from "vue-avatar-creator"
+import { defaultAvatar } from "avag-avatar-creator"
 
 export default {
   setAvatar: ({ commit }, avatarOptions) => {

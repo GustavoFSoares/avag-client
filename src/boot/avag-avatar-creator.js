@@ -1,6 +1,6 @@
 import { boot } from "quasar/wrappers";
 
-import VueAvatarCreator from "vue-avatar-creator";
+import VueAvatarCreator from "avag-avatar-creator";
 
 export default boot(({ app }) => {
   app.use(VueAvatarCreator);
