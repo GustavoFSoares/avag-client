@@ -3,29 +3,21 @@
     <template #default>
       <div class="edit-user__wrapper">
         <div class="edit-user__form">
-          <QInput class="edit-user__form-name" outlined v-model="userData.name" :label="$t(`${I18N_PATH}.form.name`)" />
+          <QInput class="edit-user__form-name" outlined v-model="userData?.name"
+            :label="$t(`${I18N_PATH}.form.name`)" />
 
-          <QInput class="edit-user__form-email" outlined disable v-model="userData.email" :label="$t(`${I18N_PATH}.form.email`)" />
-          <QInput class="edit-user__form-level" outlined disable v-model="userData.levelName" :label="$t(`${I18N_PATH}.form.levelName`)" />
+          <QInput class="edit-user__form-email" outlined disable v-model="userData.email"
+            :label="$t(`${I18N_PATH}.form.email`)" />
+          <QInput class="edit-user__form-level" outlined disable v-model="userData.levelName"
+            :label="$t(`${I18N_PATH}.form.levelName`)" />
         </div>
 
         <div class="edit-user__buttons-wrapper">
-          <QBtn
-            class="edit-user__button"
-            outline
-            dense
-            :label="$t(`${I18N_PATH}.buttons.cancel`)"
-            color="primary"
-            :to="{ name: 'home' }"
-          />
+          <QBtn class="edit-user__button" outline dense :label="$t(`${I18N_PATH}.buttons.cancel`)" color="primary"
+            :to="{ name: 'home' }" />
 
-          <QBtn
-            class="edit-user__button"
-            :label="$t(`${I18N_PATH}.buttons.submit`)"
-            color="primary"
-            dense
-            @click="handleSubmit"
-          />
+          <QBtn class="edit-user__button" :label="$t(`${I18N_PATH}.buttons.submit`)" color="primary" dense
+            @click="handleSubmit" />
         </div>
       </div>
     </template>
@@ -96,7 +88,6 @@ onMounted(() => {
     min-width: 200px;
   }
 
-  &__submit-button {
-  }
+  &__submit-button {}
 }
 </style>

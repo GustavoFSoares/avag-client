@@ -67,12 +67,11 @@ export default {
               root: true,
             });
 
-            resolve(true);
+            resolve({ request: true, message: "" });
           }
         )
         .catch((err) => {
-          console.error(err);
-          resolve(false);
+          resolve({ request: false, message: err.response?.data?.data[0] });
         })
         .finally(() => {
           dispatch("setLoading", false);

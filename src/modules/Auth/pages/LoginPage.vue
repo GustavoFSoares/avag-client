@@ -6,56 +6,31 @@
           <div class="login-page__wrapper__avg__logo"></div>
         </div>
         <article class="login-page__form">
-          <QInput
-            v-model="email"
-            dense
-            filled
-            :label="$t(`${I18N_PATH}.form.email`)"
-          />
+          <QInput v-model="email" dense filled :label="$t(`${I18N_PATH}.form.email`)" />
 
-          <QInput
-            v-model="password"
-            dense
-            filled
-            :type="showPassword ? 'password' : 'text'"
-            :label="$t(`${I18N_PATH}.form.password`)"
-          >
+          <QInput v-model="password" dense filled :type="showPassword ? 'password' : 'text'"
+            :label="$t(`${I18N_PATH}.form.password`)">
             <template v-slot:append>
-              <QIcon
-                :name="showPassword ? 'visibility_off' : 'visibility'"
-                class="cursor-pointer"
-                @click="showPassword = !showPassword"
-              />
+              <QIcon :name="showPassword ? 'visibility_off' : 'visibility'" class="cursor-pointer"
+                @click="showPassword = !showPassword" />
             </template>
           </QInput>
         </article>
 
         <transition name="login-page__error-message">
           <p class="login-page__error-message" v-if="hadFailedValidation">
-            {{ $t(`${I18N_PATH}.failedValidation`) }}
+            {{ hadFailedValidationMessage }}
           </p>
         </transition>
 
         <article v-if="false" class="login-page__forgot-password">
           <router-link :to="{ name: 'auth.forgot' }">
-            <QBtn
-              flat
-              color="primary"
-              size="xs"
-              :label="$t(`${I18N_PATH}.forgotPassword`)"
-              :disable="isLoading"
-            />
+            <QBtn flat color="primary" size="xs" :label="$t(`${I18N_PATH}.forgotPassword`)" :disable="isLoading" />
           </router-link>
         </article>
 
-        <QBtn
-          class="login-page__submit"
-          color="secondary"
-          :label="$t(`${I18N_PATH}.submit`)"
-          :disable="!allowSubmit"
-          :loading="isLoading"
-          @click="handleSubmit"
-        />
+        <QBtn class="login-page__submit" color="secondary" :label="$t(`${I18N_PATH}.submit`)" :disable="!allowSubmit"
+          :loading="isLoading" @click="handleSubmit" />
       </div>
     </AvCard>
   </section>
@@ -83,6 +58,7 @@ export default {
     const password = ref("123");
     const showPassword = ref(false);
     const hadFailedValidation = ref(false);
+    const hadFailedValidationMessage = ref("");
 
     const allowSubmit = computed(() => !!email.value && !!password.value);
     const isLoading = computed(() => {
@@ -95,14 +71,16 @@ export default {
       }
 
       hadFailedValidation.value = false;
+      hadFailedValidationMessage.value = "";
 
       const loginResponse = await $store.dispatch("AuthModule/doLogin", {
         email: email.value,
         password: password.value,
       });
-
-      if (!loginResponse) {
+      console.log(loginResponse);
+      if (!loginResponse.request) {
         hadFailedValidation.value = true;
+        hadFailedValidationMessage.value = loginResponse.message;
         return;
       }
 
@@ -115,6 +93,7 @@ export default {
       password,
       showPassword,
       hadFailedValidation,
+      hadFailedValidationMessage,
       allowSubmit,
       isLoading,
       handleSubmit,
@@ -172,6 +151,7 @@ export default {
     text-align: center;
 
     @keyframes shake {
+
       10%,
       90% {
         transform: translate3d(-1px, 0, 0);

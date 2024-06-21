@@ -11,8 +11,8 @@
     <div class="user-card-header__container">
       <div :class="['user', { 'user--is-close': isClose }]">
         <div class="user-info">
-          <h5 class="user-info__name">{{ userData.name }}</h5>
-          <h6 class="user-info__level">{{ userData.levelName }}</h6>
+          <h5 class="user-info__name">{{ userData?.name }}</h5>
+          <h6 class="user-info__level">{{ userData?.levelName }}</h6>
         </div>
 
         <div class="user-edit">
@@ -66,14 +66,14 @@ const avatarData = computed(() => $store.getters["AuthModule/avatar/avatarOption
 const rewardsData = computed(() => $store.getters["AuthModule/rewardsData"]);
 
 const indexes = computed(() => ({
-  start: userData.value.range.start,
-  end: userData.value.range.end,
+  start: userData.value?.range.start,
+  end: userData.value?.range.end,
 }));
 
 const barProgress = computed(() => (rewardsData.value.points / indexes.value.end) * 100);
 
 const levelFormatter = (val) => {
-  return val.toLocaleString("pt-BR");
+  return val?.toLocaleString("pt-BR");
 };
 
 const getRewardIcon = (rewardName) => {
