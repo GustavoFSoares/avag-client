@@ -78,6 +78,7 @@ onMounted(async () => {
   activiesGroups.value = activiesData;
 
   $store.dispatch("AuthModule/refreshUser");
+  $store.dispatch("NotificationsModule/loadNotifications");
 });
 </script>
 

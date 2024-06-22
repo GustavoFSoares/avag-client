@@ -666,10 +666,10 @@ autoprefixer@^10.4.2:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-avag-avatar-creator@^0.1.6:
-  version "0.1.6"
-  resolved "https://registry.yarnpkg.com/avag-avatar-creator/-/avag-avatar-creator-0.1.6.tgz#ae158d925bdae81c7e48777815df27a93ea98dbf"
-  integrity sha512-tG34FBAU8pV5zlCT7C1lnVCPvBYvotcP9qScE0x4F8k6n92av4VsppiivoZnnq22aipIJXyR7+mk7bvd9TU0Vg==
+avag-avatar-creator@^0.1.7:
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/avag-avatar-creator/-/avag-avatar-creator-0.1.7.tgz#d1ab544e3ff82690218702dd3667a6e84957ef22"
+  integrity sha512-UK7CxizAIyVXHJBWg92L4oz17E3ZJNfXG8S2TG7RCgnchORXxI1p39yu/IdG4D8JzRIEJE517BnfCxm3Dom93w==
   dependencies:
     mix-css-color "^0.2.0"
     oh-vue-icons "^1.0.0-rc3"

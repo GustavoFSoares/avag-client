@@ -1,10 +1,6 @@
 <template>
   <div class="toolbar-settings">
-    <div>
-      <button class="setting-item" @click="handleLogoutUser" title="logout">
-        <QIcon class="setting-item__icon" name="fa-solid fa-power-off" />
-      </button>
-    </div>
+
   </div>
 </template>
 
@@ -15,11 +11,7 @@ import { useRouter } from "vue-router";
 const $store = useStore();
 const $router = useRouter();
 
-const handleLogoutUser = async () => {
-  $router.push({ name: "auth.login" });
 
-  await $store.dispatch("AuthModule/invalidateUser");
-};
 </script>
 
 <style lang="scss" scoped>

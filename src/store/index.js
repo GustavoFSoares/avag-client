@@ -9,6 +9,7 @@ import ActivitiesModule from "./modules/activities";
 import AchievementsModule from "./modules/achievements";
 import CertificatesModule from "./modules/certificates";
 import LibraryModule from "./modules/library";
+import NotificationsModule from "./modules/notifications";
 
 /*
  * If not building with SSR mode, you can
@@ -30,6 +31,7 @@ export default store(function (/* { ssrContext } */) {
       AchievementsModule,
       CertificatesModule,
       LibraryModule,
+      NotificationsModule,
     },
 
     // enable strict mode (adds overhead!)

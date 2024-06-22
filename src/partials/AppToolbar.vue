@@ -9,48 +9,65 @@
     >
       <div class="app-toolbar__logo-content" />
     </QBtn>
-    <!-- <div class="navigation">
-      <router-link
-        :class="[
-          'navigation-item',
-          { 'router-link-active': $route.name.includes(routeItem.route) },
-        ]"
-        v-for="(routeItem, routeKey) in routes"
-        :key="routeKey"
-        :to="{ name: `home.${routeItem.route}` }"
-        @click="handleClickNavigationItem"
-      >
-        <h4 class="navigation-item__text">
-          {{ $t(`modules.${routeKey}.seo.title`) }}
-        </h4>
-      </router-link>
-    </div> -->
 
     <div class="controls">
-      <div class="notification">
+      <q-btn flat round class="notification" @click="handleClickNotification">
         <QIcon class="controls__icon" name="fa-solid fa-bell" />
-      </div>
+        <q-badge v-if="notificationsCount > 0" color="dark-blue" floating>
+          <q-circular-progress
+            v-if="notificationsLoading"
+            indeterminate
+            rounded
+            color="white"
+            size="10px"
+          />
+          <template v-else>
+            {{ notificationsCount }}
+          </template>
+        </q-badge>
+        <q-tooltip>
+          Visualizar notificações
+        </q-tooltip>
+      </q-btn>
 
-      <AppToolbarSettings />
+      <q-btn round flat @click="handleLogoutUser" title="logout">
+        <QIcon class="controls__icon" name="fa-solid fa-power-off" />
+        <q-tooltip>
+          Sair
+        </q-tooltip>
+      </q-btn>
     </div>
   </QToolbar>
 </template>
 
 <script setup>
-import AppToolbarSettings from "./AppToolbar/ToolbarSettings.vue";
+
+import { computed } from "vue";
+import { useRouter } from "vue-router";
+import { useStore } from "vuex";
+
+const $store = useStore();
+const $router = useRouter();
 
 const $emit = defineEmits(["navigating"]);
-
-const routes = {
-  activities: { route: "activities" },
-  ranking: { route: "rankings" },
-  achievements: { route: "achievements" },
-  certificates: { route: "certificates" },
-};
 
 const handleClickNavigationItem = () => {
   $emit("navigating");
 };
+
+const notificationsCount = computed(() => $store.getters["NotificationsModule/count"]);
+const notificationsLoading = computed(() => $store.state.NotificationsModule.loading);
+
+const handleClickNotification = () => {
+  handleClickNavigationItem();
+  $router.push({ name: "notifications" });
+}
+
+const handleLogoutUser = async () => {
+  $store.dispatch("AuthModule/invalidateUser");
+  $router.push({ name: "auth.login" });
+};
+
 </script>
 
 <style lang="scss" scoped>
@@ -65,7 +82,6 @@ const handleClickNavigationItem = () => {
   align-items: center;
 
   .notification {
-    cursor: pointer;
   }
 
   &__logo {
