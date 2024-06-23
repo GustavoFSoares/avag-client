@@ -1,7 +1,13 @@
 <template>
   <div class="notifications">
 
-    <h4 class="text-white">Chat</h4>
+    <div class="header">
+      <h4>Notificações</h4>
+
+      <q-btn color="white" text-color="black" @click="goBack">
+        Voltar
+      </q-btn>
+    </div>
 
     <vue-advanced-chat
       load-first-room
@@ -72,6 +78,8 @@ const sendMessage = async ({ detail }) => {
   messages.value = newMessages;
 }
 
+const goBack = () => $router.back();
+
 onBeforeMount(() => {
   loadMessages()
 })
@@ -87,8 +95,12 @@ onBeforeMount(() => {
   padding: 24px;
 }
 
-.text-white {
+.header {
   margin-bottom: 20px;
+  color: #fff;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
 
 </style>
