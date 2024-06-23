@@ -10,11 +10,6 @@ export default [
         name: "notifications.list",
         component: () => import("modules/Notifications/pages/NotificationsPage.vue"),
       },
-      {
-        path: "chat",
-        name: "notifications.chat",
-        component: () => import("modules/Notifications/pages/ChatPage.vue"),
-      }
     ],
   },
 ];

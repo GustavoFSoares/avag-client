@@ -168,10 +168,6 @@ onMounted(() => {
     }
   }
 
-  .avatar-preview {
-    transform: translate(-17px);
-  }
-
   .avatar {
     display: flex;
     gap: 20px;
@@ -198,5 +194,18 @@ onMounted(() => {
       }
     }
   }
+}
+</style>
+<style lang="scss">
+.avatar-preview {
+  border-radius: 12px;
+  transform: translate(0) !important;
+  position: relative;
+
+   svg {
+    > * {
+      transform: translate(85px, 65px);
+    }
+   }
 }
 </style>

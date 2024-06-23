@@ -74,11 +74,8 @@ const handleStartActivity = (activityId) => {
 
 onMounted(async () => {
   const activiesData = await $store.dispatch("ActivitiesModule/getActivities");
-
   activiesGroups.value = activiesData;
-
   $store.dispatch("AuthModule/refreshUser");
-  $store.dispatch("NotificationsModule/loadNotifications");
 });
 </script>
 

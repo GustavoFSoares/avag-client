@@ -163,3 +163,9 @@ export default {
   // }
 }
 </style>
+
+<style lang="scss">
+.avatar-preview {
+  transform: translate(80px, 65px);
+}
+</style>

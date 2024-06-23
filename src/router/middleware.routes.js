@@ -9,6 +9,7 @@ export default async ([to, from, next], $store) => {
 
   if (userIsLoggedIn && !userData) {
     const token = $store.getters["AuthModule/userToken"];
+    $store.dispatch("NotificationsModule/loadNotifications");
 
     try {
       await $store.dispatch("AuthModule/getUserByToken", token);
@@ -18,6 +19,8 @@ export default async ([to, from, next], $store) => {
       next({ name: "auth.login" });
       return;
     }
+  } else if (userIsLoggedIn) {
+    $store.dispatch("NotificationsModule/loadNotifications");
   }
 
   return next();

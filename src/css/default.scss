@@ -19,3 +19,15 @@ p {
   font-family: "Open Sans", serif;
   font-weight: normal;
 }
+
+.avatar-preview {
+  border-radius: 12px;
+  transform: translate(0) !important;
+  position: relative;
+
+   svg {
+    > * {
+      // transform: translate(95px, 65px);
+    }
+   }
+}
