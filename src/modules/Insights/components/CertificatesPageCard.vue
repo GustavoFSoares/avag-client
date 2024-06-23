@@ -8,6 +8,7 @@
 
         <div class="certificates-page-card__image" v-else>
           <img
+            class="object-fit"
             src="~assets/img/certificates/default-certificate.png"
             :alt="title"
             :title="title"
@@ -124,6 +125,10 @@ export default {
       font-size: 12px;
       font-weight: $font-weight-light;
     }
+  }
+
+  .object-fit {
+    object-fit: contain;
   }
 }
 </style>
